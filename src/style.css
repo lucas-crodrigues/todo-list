@@ -17,8 +17,9 @@ button {
 }
 
 h2 {
-  text-align: center;
   color: rgb(65, 65, 65);
+  font-size: 18px;
+  padding-left: 14px;
 }
 
 form {
