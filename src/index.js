@@ -13,7 +13,7 @@ const markupAllTasks = () => {
   `<div class="id_${task.index}">
     <input type="checkbox"  class="checkbox" ${task.completed ? 'checked' : ''}>
     <p>${task.description}</p>
-    <button type="button">⁅⁆</button>
+    <button type="button">🗑</button>
   </div>
   <hr>`;
   });
