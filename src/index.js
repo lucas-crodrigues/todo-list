@@ -1,13 +1,28 @@
 import _ from 'lodash';
 import './style.css';
 
-function component() {
-  const element = document.createElement('div');
+const tasks = [
+  { description: 'Wash the dishes', completed: true, index: 1},
+  { description: 'complete To Do list project', completed: false, index: 2},
+];
 
-  // Lodash, now imported by this script
-  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-
-  return element;
+const markupAllTasks = () => {
+  let list = '';
+  tasks.forEach((task) => {
+    list += 
+  `<div class="id_${task.index}">
+    <input type="checkbox"  class="checkbox" ${task.completed ? 'checked' : ''}>
+    <p>${task.description}</p>
+    <button type="button">⁅⁆</button>
+  </div>
+  <hr>`;
+  });
+  return list;
 }
 
-document.body.appendChild(component());
+const renderTasks = () => {
+  const taskList = document.querySelector('.to-do-list');
+  taskList.innerHTML = markupAllTasks();
+}
+
+window.addEventListener('DOMContentLoaded', () => renderTasks());
