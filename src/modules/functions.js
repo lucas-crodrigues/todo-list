@@ -3,7 +3,7 @@ let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 const getLocalStorage = () => {
   tasks = JSON.parse(localStorage.getItem('tasks')) || [];
   return tasks;
-}
+};
 
 const markupAllTasks = () => {
   let allTasks = '';
@@ -15,7 +15,7 @@ const markupAllTasks = () => {
                           </li>`;
   });
   return allTasks;
-}
+};
 
 const addTask = () => {
   const itask = document.querySelector('.add-task').value;
@@ -23,7 +23,7 @@ const addTask = () => {
   tasks.push({ taskName: itask, completed: false, id: tasks.length + 1 });
   localStorage.setItem('tasks', JSON.stringify(tasks));
   document.querySelector('.add-task').value = '';
-}
+};
 
 const removeTask = (e) => {
   tasks = getLocalStorage();
@@ -32,7 +32,7 @@ const removeTask = (e) => {
   tasks.splice(buttonID - 1, 1);
   localStorage.setItem('tasks', JSON.stringify(tasks));
   return tasks;
-}
+};
 
 const updateTask = (e) => {
   tasks = getLocalStorage();
@@ -41,7 +41,7 @@ const updateTask = (e) => {
   tasks[index - 1].taskName = e.target.value;
   localStorage.setItem('tasks', JSON.stringify(tasks));
   return tasks;
-}
+};
 
 const updateIds = () => {
   tasks = getLocalStorage();
@@ -50,7 +50,7 @@ const updateIds = () => {
   }
   localStorage.setItem('tasks', JSON.stringify(tasks));
   return tasks;
-}
+};
 
 module.exports = {
   markupAllTasks,
@@ -58,4 +58,4 @@ module.exports = {
   removeTask,
   updateTask,
   updateIds,
-}
+};

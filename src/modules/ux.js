@@ -10,8 +10,8 @@ const renderTasks = () => {
   tasksContainer.innerHTML = markupAllTasks();
   const page = document.querySelector('body');
   page.replaceWith(page.cloneNode(true));
-  addEventListeners();
-}
+  addEventListeners(); // eslint-disable-line no-use-before-define
+};
 
 const addEventListeners = () => {
   const addTaskForm = document.querySelector('form');
@@ -35,9 +35,9 @@ const addEventListeners = () => {
       updateTask(e);
     });
   });
-}
+};
 
-module.exports = { 
+module.exports = {
   renderTasks,
-  addEventListeners
-}
+  addEventListeners,
+};
