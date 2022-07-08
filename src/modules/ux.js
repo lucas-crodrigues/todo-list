@@ -54,16 +54,16 @@ const addEventListeners = () => {
 
   const refresh = document.querySelector('.head button');
   refresh.addEventListener('dblclick', () => {
-    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
     tasks.forEach((task) => {
       task.completed = true;
-    })
+    });
     localStorage.setItem('tasks', JSON.stringify(tasks));
     clearComplete();
     renderTasks();
-  })
+  });
 };
 
 module.exports = {
-  renderTasks
+  renderTasks,
 };

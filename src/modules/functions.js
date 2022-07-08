@@ -80,5 +80,5 @@ module.exports = {
   updateTask,
   updateIds,
   checkBox,
-  clearComplete
+  clearComplete,
 };
