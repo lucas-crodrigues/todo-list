@@ -52,10 +52,33 @@ const updateIds = () => {
   return tasks;
 };
 
+const checkBox = (e) => {
+  tasks = getLocalStorage();
+  const task = e.target;
+  const index = Number(task.id.split('_')[1]);
+
+  if (tasks[index - 1].completed === false) {
+    tasks[index - 1].completed = true;
+  } else if (tasks[index - 1].completed === true) {
+    tasks[index - 1].completed = false;
+  }
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+  return tasks;
+};
+
+const clearComplete = () => {
+  tasks = getLocalStorage();
+  tasks = tasks.filter((task) => task.completed === false);
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+  return tasks;
+};
+
 module.exports = {
   markupAllTasks,
   addTask,
   removeTask,
   updateTask,
   updateIds,
+  checkBox,
+  clearComplete,
 };
