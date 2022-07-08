@@ -3,6 +3,8 @@ const { addTask } = require('./functions.js');
 const { removeTask } = require('./functions.js');
 const { updateTask } = require('./functions.js');
 const { updateIds } = require('./functions.js');
+const { checkBox } = require('./functions.js');
+const { clearComplete } = require('./functions.js');
 
 const renderTasks = () => {
   const tasksContainer = document.querySelector('.todo-placeholder');
@@ -35,9 +37,33 @@ const addEventListeners = () => {
       updateTask(e);
     });
   });
+
+  const check = document.querySelectorAll('.checkbox');
+  check.forEach((box) => {
+    box.addEventListener('change', (e) => {
+      checkBox(e);
+      renderTasks();
+    });
+  });
+
+  const clearCompleted = document.querySelector('.clear-complete');
+  clearCompleted.addEventListener('click', () => {
+    clearComplete();
+    renderTasks();
+  });
+
+  const refresh = document.querySelector('.head button');
+  refresh.addEventListener('dblclick', () => {
+    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    tasks.forEach((task) => {
+      task.completed = true;
+    })
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+    clearComplete();
+    renderTasks();
+  })
 };
 
 module.exports = {
-  renderTasks,
-  addEventListeners,
+  renderTasks
 };
