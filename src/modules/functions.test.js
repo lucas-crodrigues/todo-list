@@ -23,7 +23,7 @@ const html = `<section class="todo-list">
 
 document.body.innerHTML = html;
 
-describe('Add and remove functions', () => {
+describe('Add and delete functions', () => {
   test('add 1 item', () => {
     addTask();
     renderTasks();
@@ -31,7 +31,7 @@ describe('Add and remove functions', () => {
     expect(list).toHaveLength(1);
   });
 
-  test('add 2 more items', () => {
+  test('add 2 items or more', () => {
     addTask();
     renderTasks();
     addTask();
