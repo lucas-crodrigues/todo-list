@@ -45,9 +45,7 @@ const updateTask = (e) => {
 
 const updateIds = () => {
   tasks = getLocalStorage();
-  for (let i = 0; i < tasks.length; i += 1) {
-    tasks[i].id = i + 1;
-  }
+  tasks.forEach((task, index) => { task.id = index + 1; });
   localStorage.setItem('tasks', JSON.stringify(tasks));
   return tasks;
 };
