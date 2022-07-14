@@ -59,7 +59,7 @@ describe('Add and remove functions', () => {
   });
 
   test('remove 2 items', () => {
-    let tasks = [{ taskName: 'task 1', completed: false, id: 1 }, { taskName: 'task 2', completed: false, id: 2 }, { taskName: 'task 3', completed: false, id: 3 }];
+    const tasks = [{ taskName: 'task 1', completed: false, id: 1 }, { taskName: 'task 2', completed: false, id: 2 }, { taskName: 'task 3', completed: false, id: 3 }];
     localStorage.setItem('tasks', JSON.stringify(tasks));
     renderTasks();
     const removeTaskBtn = document.querySelectorAll('.remove');
