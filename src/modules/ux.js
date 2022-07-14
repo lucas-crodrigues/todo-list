@@ -66,4 +66,5 @@ const addEventListeners = () => {
 
 module.exports = {
   renderTasks,
+  addEventListeners,
 };
