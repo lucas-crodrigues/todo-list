@@ -4,7 +4,7 @@
   "description": "This is the To-Do-List project for the second week of the second module in the microverse program.",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
     "watch": "webpack --watch",
     "start": "webpack serve --open",
     "build": "webpack"
