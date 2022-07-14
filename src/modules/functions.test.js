@@ -3,7 +3,6 @@
  */
 
 const { addTask } = require('./functions.js');
-const { removeTask } = require('./functions.js');
 const { renderTasks } = require('./ux.js');
 
 const html = `<section class="todo-list">
@@ -40,17 +39,18 @@ describe('Add and remove functions', () => {
     expect(list).toHaveLength(3);
   });
 
+  test('submit 1 more item', () => {
+    renderTasks();
+    document.querySelector('.add-task').value = 'a task';
+    document.querySelector('form div button').click();
+    const list = document.querySelectorAll('.task-list');
+    expect(list).toHaveLength(4);
+  });
+
   test('remove 1 item', () => {
     const tasks = [{ taskName: 'task 1', completed: false, id: 1 }, { taskName: 'task 2', completed: false, id: 2 }, { taskName: 'task 3', completed: false, id: 3 }];
     localStorage.setItem('tasks', JSON.stringify(tasks));
     renderTasks();
-    const removeTaskBtn = document.querySelectorAll('.remove');
-    removeTaskBtn.forEach((button) => {
-      button.addEventListener('click', (e) => {
-        removeTask(e);
-        renderTasks();
-      });
-    });
     document.querySelector('#r_3').click();
     const localStorageTasks = JSON.parse(localStorage.getItem('tasks'));
     const list = document.querySelectorAll('.task-list');
@@ -62,18 +62,62 @@ describe('Add and remove functions', () => {
     const tasks = [{ taskName: 'task 1', completed: false, id: 1 }, { taskName: 'task 2', completed: false, id: 2 }, { taskName: 'task 3', completed: false, id: 3 }];
     localStorage.setItem('tasks', JSON.stringify(tasks));
     renderTasks();
-    const removeTaskBtn = document.querySelectorAll('.remove');
-    removeTaskBtn.forEach((button) => {
-      button.addEventListener('click', (e) => {
-        removeTask(e);
-        renderTasks();
-      });
-    });
     document.querySelector('#r_3').click();
     document.querySelector('#r_1').click();
     const localStorageTasks = JSON.parse(localStorage.getItem('tasks'));
     const list = document.querySelectorAll('.task-list');
     expect(localStorageTasks).toHaveLength(1);
     expect(list).toHaveLength(1);
+  });
+});
+
+describe('Edit, update status, and Clear completed functions', () => {
+  test('Edit description', () => {
+    const tasks = [{ taskName: 'task 1', completed: false, id: 1 }, { taskName: 'task 2', completed: false, id: 2 }, { taskName: 'task 3', completed: false, id: 3 }];
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+    renderTasks();
+    const event = new MouseEvent('input', {
+      view: window,
+      bubbles: true,
+      cancelable: true,
+    });
+    document.querySelector('#i_1').value = 'new task';
+    document.querySelector('#i_1').dispatchEvent(event);
+    expect(JSON.parse(localStorage.getItem('tasks'))[0].taskName).toBe('new task');
+  });
+
+  test('Update status false to true', () => {
+    document.querySelector('#c_1').click();
+    expect(JSON.parse(localStorage.getItem('tasks'))[0].completed).toBe(true);
+  });
+
+  test('Update status true to false', () => {
+    document.querySelector('#c_1').click();
+    expect(JSON.parse(localStorage.getItem('tasks'))[0].completed).toBe(false);
+  });
+
+  test('Clear all completed', () => {
+    const tasks = [{ taskName: 'task 1', completed: true, id: 1 }, { taskName: 'task 2', completed: true, id: 2 }, { taskName: 'task 3', completed: false, id: 3 }];
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+    renderTasks();
+    document.querySelector('.clear-complete').click();
+    const list = document.querySelectorAll('.task-list');
+    expect(JSON.parse(localStorage.getItem('tasks'))).toHaveLength(1);
+    expect(list).toHaveLength(1);
+  });
+
+  test('Clear all tasks', () => {
+    const tasks = [{ taskName: 'task 1', completed: true, id: 1 }, { taskName: 'task 2', completed: true, id: 2 }, { taskName: 'task 3', completed: false, id: 3 }];
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+    renderTasks();
+    const event = new MouseEvent('dblclick', {
+      view: window,
+      bubbles: true,
+      cancelable: true,
+    });
+    document.querySelector('.head button').dispatchEvent(event);
+    const list = document.querySelectorAll('.task-list');
+    expect(JSON.parse(localStorage.getItem('tasks'))).toHaveLength(0);
+    expect(list).toHaveLength(0);
   });
 });
