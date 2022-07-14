@@ -77,10 +77,10 @@ describe('Edit, update status, and Clear completed functions', () => {
     localStorage.setItem('tasks', JSON.stringify(tasks));
     renderTasks();
     const event = new MouseEvent('input', {
-      'view': window,
-      'bubbles': true,
-      'cancelable': true
-    }); 
+      view: window,
+      bubbles: true,
+      cancelable: true,
+    });
     document.querySelector('#i_1').value = 'new task';
     document.querySelector('#i_1').dispatchEvent(event);
     expect(JSON.parse(localStorage.getItem('tasks'))[0].taskName).toBe('new task');
@@ -94,5 +94,30 @@ describe('Edit, update status, and Clear completed functions', () => {
   test('Update status true to false', () => {
     document.querySelector('#c_1').click();
     expect(JSON.parse(localStorage.getItem('tasks'))[0].completed).toBe(false);
+  });
+
+  test('Clear all completed', () => {
+    const tasks = [{ taskName: 'task 1', completed: true, id: 1 }, { taskName: 'task 2', completed: true, id: 2 }, { taskName: 'task 3', completed: false, id: 3 }];
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+    renderTasks();
+    document.querySelector('.clear-complete').click();
+    const list = document.querySelectorAll('.task-list');
+    expect(JSON.parse(localStorage.getItem('tasks'))).toHaveLength(1);
+    expect(list).toHaveLength(1);
+  });
+
+  test('Clear all tasks', () => {
+    const tasks = [{ taskName: 'task 1', completed: true, id: 1 }, { taskName: 'task 2', completed: true, id: 2 }, { taskName: 'task 3', completed: false, id: 3 }];
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+    renderTasks();
+    const event = new MouseEvent('dblclick', {
+      view: window,
+      bubbles: true,
+      cancelable: true,
+    });
+    document.querySelector('.head button').dispatchEvent(event);
+    const list = document.querySelectorAll('.task-list');
+    expect(JSON.parse(localStorage.getItem('tasks'))).toHaveLength(0);
+    expect(list).toHaveLength(0);
   });
 });
