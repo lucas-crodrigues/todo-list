@@ -25,7 +25,7 @@ To get a local copy up and running follow these simple example steps.
   1- Download files <br>
   2- Run index.html in browser
 
-To clone the repo run the line `https://github.com/lucas-crodrigues/todo-list.git` on your console:
+To clone the repo run the line `git clone https://github.com/lucas-crodrigues/todo-list.git` on your console:
 
 ## Authors
 
