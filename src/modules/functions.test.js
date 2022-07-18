@@ -76,13 +76,13 @@ describe('Edit, update status, and Clear completed functions', () => {
     const tasks = [{ taskName: 'task 1', completed: false, id: 1 }, { taskName: 'task 2', completed: false, id: 2 }, { taskName: 'task 3', completed: false, id: 3 }];
     localStorage.setItem('tasks', JSON.stringify(tasks));
     renderTasks();
-    const event = new MouseEvent('input', {
-      view: window,
-      bubbles: true,
-      cancelable: true,
-    });
+    // const event = new MouseEvent('input', {
+    //   view: window,
+    //   bubbles: true,
+    //   cancelable: true,
+    // });
     document.querySelector('#i_1').value = 'new task';
-    document.querySelector('#i_1').dispatchEvent(event);
+    document.querySelector('#i_1').dispatchEvent(new Event('input'));
     expect(JSON.parse(localStorage.getItem('tasks'))[0].taskName).toBe('new task');
   });
 
